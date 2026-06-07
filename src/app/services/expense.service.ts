@@ -146,6 +146,62 @@ updateExpense(updatedExpense: Expense): void {
   }
 
 }
+getHighestExpenseMonthDetails(): {
+  month: string;
+  amount: number;
+} {
+
+  const monthlyExpenses =
+    this.getMonthlyExpenses();
+
+  let highestMonth = '';
+
+  let highestAmount = 0;
+
+  Object.entries(monthlyExpenses)
+    .forEach(([month, amount]) => {
+
+      if (amount > highestAmount) {
+
+        highestAmount = amount;
+
+        highestMonth = month;
+
+      }
+
+    });
+
+  return {
+    month: highestMonth,
+    amount: highestAmount
+  };
+
+}
+getAverageMonthlyExpense(): number {
+
+  const monthlyExpenses =
+    Object.values(
+      this.getMonthlyExpenses()
+    );
+
+  if (
+    monthlyExpenses.length === 0
+  ) {
+    return 0;
+  }
+
+  const total =
+    monthlyExpenses.reduce(
+      (sum, amount) =>
+        sum + amount,
+      0
+    );
+
+  return Math.round(
+    total / monthlyExpenses.length
+  );
+
+}
 
 getHighestSpendingCategory(): string {
 
@@ -176,6 +232,32 @@ getHighestSpendingCategory(): string {
         ? a
         : b
   );
+
+}
+getMonthlyExpenses() {
+
+  const monthlyTotals: {
+    [key: string]: number
+  } = {};
+
+  this.expenses.forEach(expense => {
+
+    const date =
+      new Date(expense.date);
+
+    const month =
+      date.toLocaleString(
+        'default',
+        { month: 'short' }
+      );
+
+    monthlyTotals[month] =
+      (monthlyTotals[month] || 0)
+      + expense.amount;
+
+  });
+
+  return monthlyTotals;
 
 }
 getBudgetAlerts(): string[] {

@@ -34,3 +34,46 @@
   </tbody>
 
 </table>
+
+<hr>
+
+<div class="report-card">
+
+  <h2>Monthly Expense Trend</h2>
+
+  <app-monthly-trend-chart
+    [data]="monthlyTrendData">
+  </app-monthly-trend-chart>
+
+</div>
+<div class="analytics-summary">
+
+  <div class="summary-box">
+
+    <h3>
+      Highest Month
+    </h3>
+
+  <p class="month-name">
+  {{ highestMonthDetails.month }}
+</p>
+
+<p class="month-amount">
+  ₹ {{ highestMonthDetails.amount }}
+</p>
+
+  </div>
+
+  <div class="summary-box">
+
+    <h3>
+      Average Monthly Spend
+    </h3>
+
+    <p>
+  ₹ {{ averageMonthlyExpense }}
+</p>
+
+  </div>
+
+</div>
