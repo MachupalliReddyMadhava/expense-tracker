@@ -1,0 +1,155 @@
+<h2>Budget Settings</h2>
+
+@if(successMessage){
+
+  <p>
+    {{ successMessage }}
+  </p>
+
+}
+
+<form
+  [formGroup]="budgetForm"
+  (ngSubmit)="saveBudgets()">
+
+  <div>
+
+    <label>Food Budget *</label>
+
+    <input
+      type="number"
+      formControlName="food">
+
+    @if(budgetForm.get('food')?.touched &&
+        budgetForm.get('food')?.invalid){
+
+      <small>
+        Food budget is required
+      </small>
+
+    }
+
+  </div>
+
+  <br>
+
+  <div>
+
+    <label>Travel Budget *</label>
+
+    <input
+      type="number"
+      formControlName="travel">
+
+    @if(budgetForm.get('travel')?.touched &&
+        budgetForm.get('travel')?.invalid){
+
+      <small>
+        Travel budget is required
+      </small>
+
+    }
+
+  </div>
+
+  <br>
+
+  <div>
+
+    <label>Shopping Budget *</label>
+
+    <input
+      type="number"
+      formControlName="shopping">
+
+    @if(budgetForm.get('shopping')?.touched &&
+        budgetForm.get('shopping')?.invalid){
+
+      <small>
+        Shopping budget is required
+      </small>
+
+    }
+
+  </div>
+
+  <br>
+
+  <div>
+
+    <label>Bills Budget *</label>
+
+    <input
+      type="number"
+      formControlName="bills">
+
+    @if(budgetForm.get('bills')?.touched &&
+        budgetForm.get('bills')?.invalid){
+
+      <small>
+        Bills budget is required
+      </small>
+
+    }
+
+  </div>
+
+  <br>
+
+  <div>
+
+    <label>Entertainment Budget *</label>
+
+    <input
+      type="number"
+      formControlName="entertainment">
+
+    @if(budgetForm.get('entertainment')?.touched &&
+        budgetForm.get('entertainment')?.invalid){
+
+      <small>
+        Entertainment budget is required
+      </small>
+
+    }
+
+  </div>
+
+  <br>
+
+  <button type="submit">
+    Save Budgets
+  </button>
+
+</form>
+
+<hr>
+
+<h3>Current Budget Limits</h3>
+
+<table border="1">
+
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Monthly Limit</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    @for(budget of budgets; track budget.category){
+
+      <tr>
+
+        <td>{{ budget.category }}</td>
+
+        <td>₹ {{ budget.monthlyLimit }}</td>
+
+      </tr>
+
+    }
+
+  </tbody>
+
+</table>

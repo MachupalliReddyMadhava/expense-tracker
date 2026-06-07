@@ -1,0 +1,152 @@
+<h1>Expenses</h1>
+<p>Manage your expenses here</p>
+<h2>Expense Management</h2>
+
+<app-expense-form
+  [expense]="selectedExpense"
+  (expenseAdded)="onExpenseAdded($event)">
+</app-expense-form>
+
+<hr>
+
+<h3>Search & Filter</h3>
+
+<input
+  type="text"
+  placeholder="Search by title"
+  [(ngModel)]="searchText">
+
+&nbsp;&nbsp;
+
+<select
+  [(ngModel)]="selectedCategory">
+
+  <option value="All">
+    All Categories
+  </option>
+
+  <option value="Food">
+    Food
+  </option>
+
+  <option value="Travel">
+    Travel
+  </option>
+
+  <option value="Shopping">
+    Shopping
+  </option>
+
+  <option value="Bills">
+    Bills
+  </option>
+
+  <option value="Entertainment">
+    Entertainment
+  </option>
+
+</select>
+&nbsp;&nbsp;&nbsp;
+
+<label>From Date</label>
+
+<input
+  type="date"
+  [(ngModel)]="fromDate">
+
+&nbsp;&nbsp;
+
+<label>To Date</label>
+
+<input
+  type="date"
+  [(ngModel)]="toDate">
+
+  &nbsp;&nbsp;&nbsp;
+
+@if(searchText || selectedCategory !== 'All' || fromDate || toDate ) {
+
+  <button
+    type="button"
+    (click)="clearFilters()">
+
+    Clear Filters
+
+  </button>
+
+}
+
+<br><br>
+
+<table border="1">
+
+  <thead>
+
+    <tr>
+      <th>Title</th>
+      <th>Category</th>
+      <th>Amount</th>
+      <th>Date</th>
+      <th>Payment Method</th>
+      <th>Actions</th>
+    </tr>
+
+  </thead>
+
+  <tbody>
+
+    @for(expense of filteredExpenses; track expense.id){
+
+      <tr>
+
+        <td>{{ expense.title }}</td>
+
+        <td>
+          {{
+            expense.category === 'Others'
+              ? expense.customCategory
+              : expense.category
+          }}
+        </td>
+
+        <td>₹ {{ expense.amount }}</td>
+
+        <td>{{ expense.date }}</td>
+
+        <td>{{ expense.paymentMethod }}</td>
+        <td>
+
+    <button
+        (click)="editExpense(expense)">
+        Edit
+    </button>
+
+    <button
+        (click)="deleteExpense(expense.id)">
+        Delete
+    </button>
+
+</td>
+
+      </tr>
+
+    }
+
+  </tbody>
+
+</table>
+
+@if(budgetAlertMessage){
+
+  <div>
+
+    <strong>
+      {{ budgetAlertMessage }}
+    </strong>
+
+  </div>
+
+  <br>
+
+  
+}

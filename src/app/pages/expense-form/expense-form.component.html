@@ -1,0 +1,205 @@
+
+@if(successMessage){
+
+  <p>
+    {{ successMessage }}
+  </p>
+
+}
+<form [formGroup]="expenseForm" (ngSubmit)="saveExpense()">
+
+  <div>
+    <label>Title *</label>
+
+    <input
+      type="text"
+      formControlName="title">
+
+    @if(expenseForm.get('title')?.touched &&
+        expenseForm.get('title')?.invalid) {
+
+      <small>
+
+        @if(expenseForm.get('title')?.errors?.['required']) {
+          Title is required
+        }
+
+        @if(expenseForm.get('title')?.errors?.['minlength']) {
+          Title should contain at least 3 characters
+        }
+
+      </small>
+    }
+  </div>
+
+  <br>
+
+  <div>
+
+    <label>Category *</label>
+
+    <select formControlName="category">
+
+      <option value="">Select Category</option>
+
+      <option value="Food">Food</option>
+      <option value="Travel">Travel</option>
+      <option value="Shopping">Shopping</option>
+      <option value="Bills">Bills</option>
+      <option value="Entertainment">Entertainment</option>
+      <option value="Others">Others</option>
+
+    </select>
+
+    @if(expenseForm.get('category')?.touched &&
+        expenseForm.get('category')?.invalid) {
+
+      <small>
+        Category is required
+      </small>
+
+    }
+
+  </div>
+
+  <br>
+
+  @if(expenseForm.get('category')?.value === 'Others') {
+
+    <div>
+
+      <label>Custom Category *</label>
+
+      <input
+        type="text"
+        formControlName="customCategory">
+
+      @if(expenseForm.get('customCategory')?.touched &&
+          expenseForm.get('customCategory')?.invalid) {
+
+        <small>
+          Custom Category is required
+        </small>
+
+      }
+
+    </div>
+
+    <br>
+
+  }
+
+  <div>
+
+    <label>Amount *</label>
+
+    <input
+      type="number"
+      formControlName="amount">
+
+    @if(expenseForm.get('amount')?.touched &&
+        expenseForm.get('amount')?.invalid) {
+
+      <small>
+
+        @if(expenseForm.get('amount')?.errors?.['required']) {
+          Amount is required
+        }
+
+        @if(expenseForm.get('amount')?.errors?.['min']) {
+          Amount should be greater than 0
+        }
+
+      </small>
+
+    }
+
+  </div>
+
+  <br>
+
+  <div>
+
+    <label>Date *</label>
+
+   <input
+    type="date"
+    formControlName="date"
+    [max]="todayDate">
+
+    @if(expenseForm.get('date')?.touched &&
+        expenseForm.get('date')?.invalid) {
+
+      <small>
+        Date is required
+      </small>
+
+    }
+
+  </div>
+
+  <br>
+
+  <div>
+
+    <label>Payment Method *</label>
+
+    <br>
+
+    <input
+      type="radio"
+      value="UPI"
+      formControlName="paymentMethod">
+    UPI
+
+    <input
+      type="radio"
+      value="Cash"
+      formControlName="paymentMethod">
+    Cash
+
+    <input
+      type="radio"
+      value="Credit Card"
+      formControlName="paymentMethod">
+    Credit Card
+
+    <input
+      type="radio"
+      value="Debit Card"
+      formControlName="paymentMethod">
+    Debit Card
+
+    <br>
+
+    @if(expenseForm.get('paymentMethod')?.touched &&
+        expenseForm.get('paymentMethod')?.invalid) {
+
+      <small>
+        Payment Method is required
+      </small>
+
+    }
+
+  </div>
+
+  <br>
+
+  <div>
+
+    <label>Notes</label>
+
+    <textarea
+      rows="4"
+      formControlName="notes">
+    </textarea>
+
+  </div>
+
+  <br>
+
+  <button type="submit">
+    Save Expense
+  </button>
+
+</form>

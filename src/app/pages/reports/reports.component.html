@@ -1,0 +1,36 @@
+<h2>Expense Reports</h2>
+<h2>Expense Distribution</h2>
+
+<app-expense-chart
+  [data]="chartData">
+</app-expense-chart>
+
+<hr>
+<table border="1">
+
+  <thead>
+
+    <tr>
+      <th>Category</th>
+      <th>Total Spent</th>
+    </tr>
+
+  </thead>
+
+  <tbody>
+
+    @for(item of categoryWiseExpenses; track item[0]) {
+
+      <tr>
+
+        <td>{{ item[0] }}</td>
+
+        <td>₹ {{ item[1] }}</td>
+
+      </tr>
+
+    }
+
+  </tbody>
+
+</table>
