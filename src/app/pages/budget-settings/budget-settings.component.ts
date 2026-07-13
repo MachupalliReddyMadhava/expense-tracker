@@ -8,11 +8,12 @@ import {
 
 import { Budget } from '../../models/budget';
 import { BudgetService } from '../../services/budget.service';
+import { SalarySettingsComponent } from "../salary-settings/salary-settings.component";
 
 @Component({
   selector: 'app-budget-settings',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, SalarySettingsComponent],
   templateUrl: './budget-settings.component.html',
   styleUrl: './budget-settings.component.css'
 })
@@ -70,13 +71,7 @@ export class BudgetSettingsComponent {
         b => b.category === 'Entertainment'
       );
 
-    this.budgetForm.patchValue({
-      food: food?.monthlyLimit || '',
-      travel: travel?.monthlyLimit || '',
-      shopping: shopping?.monthlyLimit || '',
-      bills: bills?.monthlyLimit || '',
-      entertainment: entertainment?.monthlyLimit || ''
-    });
+    this.budgets = this.budgetService.getBudgets();
 
   }
 
@@ -126,6 +121,8 @@ export class BudgetSettingsComponent {
     this.budgetService.saveBudgets(budgets);
 
     this.budgets = budgets;
+
+    this.budgetForm.reset();
 
     this.successMessage =
       'Budgets saved successfully';

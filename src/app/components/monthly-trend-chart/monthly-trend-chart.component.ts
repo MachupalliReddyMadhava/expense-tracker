@@ -3,7 +3,7 @@ import {
   Input,
   OnChanges,
   ElementRef,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 
 import {
@@ -12,7 +12,7 @@ import {
   LineElement,
   PointElement,
   LinearScale,
-  CategoryScale
+  CategoryScale,
 } from 'chart.js';
 
 Chart.register(
@@ -20,21 +20,17 @@ Chart.register(
   LineElement,
   PointElement,
   LinearScale,
-  CategoryScale
+  CategoryScale,
 );
 
 @Component({
   selector: 'app-monthly-trend-chart',
   standalone: true,
   imports: [],
-  templateUrl:
-    './monthly-trend-chart.component.html',
-  styleUrl:
-    './monthly-trend-chart.component.css'
+  templateUrl: './monthly-trend-chart.component.html',
+  styleUrl: './monthly-trend-chart.component.css',
 })
-export class MonthlyTrendChartComponent
-implements OnChanges {
-
+export class MonthlyTrendChartComponent implements OnChanges {
   @Input()
   data: { [key: string]: number } = {};
 
@@ -44,19 +40,14 @@ implements OnChanges {
   chart: Chart | undefined;
 
   ngOnChanges(): void {
-
     this.renderChart();
-
   }
 
   ngAfterViewInit(): void {
-
     this.renderChart();
-
   }
 
   renderChart(): void {
-
     if (!this.lineCanvas) {
       return;
     }
@@ -65,74 +56,57 @@ implements OnChanges {
       this.chart.destroy();
     }
 
-    this.chart = new Chart(
-      this.lineCanvas.nativeElement,
-      {
+    this.chart = new Chart(this.lineCanvas.nativeElement, {
+      type: 'line',
 
-        type: 'line',
+      data: {
+        labels: Object.keys(this.data),
 
-        data: {
+        datasets: [
+          {
+            label: 'Monthly Expenses',
 
-          labels:
-            Object.keys(this.data),
+            data: Object.values(this.data),
 
-          datasets: [
-  {
-    label: 'Monthly Expenses',
+            borderColor: '#1976d2',
 
-    data: Object.values(this.data),
+            backgroundColor: 'rgba(25,118,210,0.2)',
 
-    borderColor: '#1976d2',
+            borderWidth: 3,
 
-    backgroundColor: 'rgba(25,118,210,0.2)',
+            tension: 0.4,
 
-    borderWidth: 3,
+            fill: true,
 
-    tension: 0.4,
+            pointRadius: 6,
 
-    fill: true,
+            pointHoverRadius: 8,
 
-    pointRadius: 6,
+            pointBackgroundColor: '#1976d2',
+          },
+        ],
+      },
 
-    pointHoverRadius: 8,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
 
-    pointBackgroundColor: '#1976d2'
-  }
-]
+        plugins: {
+          legend: {
+            position: 'top',
+          },
 
+          datalabels: {
+            display: false,
+          },
         },
 
-        options: {
-
-  responsive: true,
-
-  maintainAspectRatio: false,
-
-  plugins: {
-
-    legend: {
-
-      position: 'top'
-
-    }
-
-  },
-
-  scales: {
-
-    y: {
-
-      beginAtZero: true
-
-    }
-
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
   }
-
-}
-
-      }
-    );
-
-  }
-
 }

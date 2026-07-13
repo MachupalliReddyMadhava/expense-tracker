@@ -1,115 +1,77 @@
 <h2>Dashboard</h2>
 
 <div class="dashboard-container">
-
   <div class="card">
-
     <h3>Total Expenses</h3>
 
-    <h2>
-      ₹ {{ expenseService.getTotalExpenses() }}
-    </h2>
-
+    <h2>₹ {{ expenseService.getTotalExpenses() }}</h2>
   </div>
 
   <div class="card">
-
     <h3>Total Transactions</h3>
 
     <h2>
       {{ expenseService.getTransactionCount() }}
     </h2>
-
   </div>
 
   <div class="card">
-
     <h3>Highest Spending Category</h3>
 
     <h2>
       {{ expenseService.getHighestSpendingCategory() }}
     </h2>
-
   </div>
-
 </div>
-<hr>
+<hr />
 
 <h3>Budget Alerts</h3>
 
-@if(budgetAlerts.length === 0){
-
-  <p>
-    No budget alerts available
-  </p>
-
+@if (budgetAlerts.length === 0) {
+  <p>No budget alerts available</p>
 } @else {
-
   <ul>
-
-    @for(alert of budgetAlerts; track alert){
-
+    @for (alert of budgetAlerts; track alert) {
       <li>
         {{ alert }}
       </li>
-
     }
-
   </ul>
   <div class="card">
+    <h3>Monthly Salary</h3>
 
-  <h3>Monthly Salary</h3>
+    <h2>₹ {{ monthlySalary }}</h2>
+  </div>
 
-  <h2>
-    ₹ {{ monthlySalary }}
-  </h2>
+  <div class="card">
+    <h3>Remaining Balance</h3>
 
-</div>
+    <h2>₹ {{ remainingBalance }}</h2>
+  </div>
 
-<div class="card">
+  <div class="card">
+    <h3>Savings %</h3>
 
-  <h3>Remaining Balance</h3>
-
-  <h2>
-    ₹ {{ remainingBalance }}
-  </h2>
-
-</div>
-
-<div class="card">
-
-  <h3>Savings %</h3>
-
-  <h2>
-    {{ savingsPercentage }}%
-  </h2>
-
-</div>
-
+    <h2>{{ savingsPercentage }}%</h2>
+  </div>
 }
-<hr>
+<hr />
 
 <h3>Budget Utilization</h3>
 
 <table border="1">
-
   <thead>
-
     <tr>
       <th>Category</th>
       <th>Spent</th>
       <th>Budget</th>
       <th>Usage %</th>
     </tr>
-
   </thead>
 
   <tbody>
-
-    @for(item of budgetUtilization; track item.category){
-
+    @for (item of budgetUtilization; track item.category) {
       <tr>
-
         <td>{{ item.category }}</td>
 
         <td>₹ {{ item.spent }}</td>
@@ -117,19 +79,7 @@
         <td>₹ {{ item.limit }}</td>
 
         <td>{{ item.percentage }}%</td>
-
       </tr>
-
     }
-
   </tbody>
-
 </table>
-
-<hr>
-
-<h3>Expense Overview</h3>
-
-<app-expense-chart
-  [data]="chartData">
-</app-expense-chart>

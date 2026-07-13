@@ -1,155 +1,117 @@
-<h2>Budget Settings</h2>
+<div class="budget-table">
+  <h3>Current Budget Limits</h3>
 
-@if(successMessage){
+  @if (successMessage) {
+    <p class="success-message">
+      {{ successMessage }}
+    </p>
+  }
 
-  <p>
-    {{ successMessage }}
-  </p>
+  <form [formGroup]="budgetForm" (ngSubmit)="saveBudgets()">
+    <div>
+      <label>Food Budget *</label>
 
-}
+      <input
+        type="number"
+        formControlName="food"
+        placeholder="Select Food budget"
+      />
 
-<form
-  [formGroup]="budgetForm"
-  (ngSubmit)="saveBudgets()">
+      @if (budgetForm.get("food")?.touched && budgetForm.get("food")?.invalid) {
+        <small> Food budget is required </small>
+      }
+    </div>
 
-  <div>
+    <div>
+      <label>Travel Budget *</label>
 
-    <label>Food Budget *</label>
+      <input
+        type="number"
+        formControlName="travel"
+        placeholder="Select Travel budget"
+      />
 
-    <input
-      type="number"
-      formControlName="food">
+      @if (
+        budgetForm.get("travel")?.touched && budgetForm.get("travel")?.invalid
+      ) {
+        <small> Travel budget is required </small>
+      }
+    </div>
 
-    @if(budgetForm.get('food')?.touched &&
-        budgetForm.get('food')?.invalid){
+    <div>
+      <label>Shopping Budget *</label>
 
-      <small>
-        Food budget is required
-      </small>
+      <input
+        type="number"
+        formControlName="shopping"
+        placeholder="Select Shopping budget"
+      />
 
-    }
+      @if (
+        budgetForm.get("shopping")?.touched &&
+        budgetForm.get("shopping")?.invalid
+      ) {
+        <small> Shopping budget is required </small>
+      }
+    </div>
 
-  </div>
+    <div>
+      <label>Bills Budget *</label>
 
-  <br>
+      <input
+        type="number"
+        formControlName="bills"
+        placeholder="Select Bills budget"
+      />
 
-  <div>
+      @if (
+        budgetForm.get("bills")?.touched && budgetForm.get("bills")?.invalid
+      ) {
+        <small> Bills budget is required </small>
+      }
+    </div>
 
-    <label>Travel Budget *</label>
+    <div>
+      <label>Entertainment Budget *</label>
 
-    <input
-      type="number"
-      formControlName="travel">
+      <input
+        type="number"
+        formControlName="entertainment"
+        placeholder="Select Entertainment budget"
+      />
 
-    @if(budgetForm.get('travel')?.touched &&
-        budgetForm.get('travel')?.invalid){
+      @if (
+        budgetForm.get("entertainment")?.touched &&
+        budgetForm.get("entertainment")?.invalid
+      ) {
+        <small> Entertainment budget is required </small>
+      }
+    </div>
 
-      <small>
-        Travel budget is required
-      </small>
+    <button type="submit">Save Budgets</button>
+  </form>
 
-    }
+  <hr />
 
-  </div>
+  <h3>Current Budget Limits</h3>
 
-  <br>
-
-  <div>
-
-    <label>Shopping Budget *</label>
-
-    <input
-      type="number"
-      formControlName="shopping">
-
-    @if(budgetForm.get('shopping')?.touched &&
-        budgetForm.get('shopping')?.invalid){
-
-      <small>
-        Shopping budget is required
-      </small>
-
-    }
-
-  </div>
-
-  <br>
-
-  <div>
-
-    <label>Bills Budget *</label>
-
-    <input
-      type="number"
-      formControlName="bills">
-
-    @if(budgetForm.get('bills')?.touched &&
-        budgetForm.get('bills')?.invalid){
-
-      <small>
-        Bills budget is required
-      </small>
-
-    }
-
-  </div>
-
-  <br>
-
-  <div>
-
-    <label>Entertainment Budget *</label>
-
-    <input
-      type="number"
-      formControlName="entertainment">
-
-    @if(budgetForm.get('entertainment')?.touched &&
-        budgetForm.get('entertainment')?.invalid){
-
-      <small>
-        Entertainment budget is required
-      </small>
-
-    }
-
-  </div>
-
-  <br>
-
-  <button type="submit">
-    Save Budgets
-  </button>
-
-</form>
-
-<hr>
-
-<h3>Current Budget Limits</h3>
-
-<table border="1">
-
-  <thead>
-    <tr>
-      <th>Category</th>
-      <th>Monthly Limit</th>
-    </tr>
-  </thead>
-
-  <tbody>
-
-    @for(budget of budgets; track budget.category){
-
+  <table border="1">
+    <thead>
       <tr>
-
-        <td>{{ budget.category }}</td>
-
-        <td>₹ {{ budget.monthlyLimit }}</td>
-
+        <th>Category</th>
+        <th>Monthly Limit</th>
       </tr>
+    </thead>
 
-    }
+    <tbody>
+      @for (budget of budgets; track budget.category) {
+        <tr>
+          <td>{{ budget.category }}</td>
 
-  </tbody>
-
-</table>
+          <td>₹ {{ budget.monthlyLimit }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+<app-salary-settings></app-salary-settings>

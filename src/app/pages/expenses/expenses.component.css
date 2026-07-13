@@ -1,0 +1,194 @@
+/* ===========================
+   Page Heading
+=========================== */
+
+h1 {
+  color: #2c3e50;
+  margin-bottom: 5px;
+}
+
+p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+h2 {
+  color: #34495e;
+  margin-bottom: 20px;
+}
+
+/* ===========================
+   Divider
+=========================== */
+
+hr {
+  margin: 30px 0;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+/* ===========================
+   Search & Filter Section
+=========================== */
+
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 15px;
+  margin-bottom: 25px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.filter-container label {
+  font-weight: 600;
+  color: #444;
+}
+
+.filter-container input,
+.filter-container select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  min-width: 180px;
+  transition: 0.3s;
+}
+
+.filter-container input:focus,
+.filter-container select:focus {
+  outline: none;
+  border-color: #4caf50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+/* ===========================
+   Buttons
+=========================== */
+
+button {
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 9px 16px;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+/* Clear Filter */
+
+.filter-container button {
+  background: #ff9800;
+  color: white;
+}
+
+.filter-container button:hover {
+  background: #f57c00;
+}
+
+/* Edit */
+
+.edit-btn {
+  background: #2196f3;
+  color: white;
+  margin-right: 8px;
+}
+
+.edit-btn:hover {
+  background: #1976d2;
+}
+
+/* Delete */
+
+.delete-btn {
+  background: #f44336;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #d32f2f;
+}
+
+/* ===========================
+   Table
+=========================== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+thead {
+  background: #4caf50;
+  color: white;
+}
+
+th,
+td {
+  padding: 14px;
+  text-align: center;
+}
+
+tbody tr:nth-child(even) {
+  background: #f8f8f8;
+}
+
+tbody tr:hover {
+  background: #e8f5e9;
+}
+
+th {
+  font-weight: 600;
+}
+
+/* ===========================
+   Budget Alert
+=========================== */
+
+.alert {
+  margin-top: 20px;
+  padding: 15px;
+  background: #fff3cd;
+  border-left: 5px solid #ffc107;
+  color: #856404;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width: 768px) {
+
+  .filter-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-container input,
+  .filter-container select,
+  .filter-container button {
+    width: 100%;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+  }
+}

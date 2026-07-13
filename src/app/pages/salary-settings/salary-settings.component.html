@@ -1,34 +1,26 @@
 <h2>Salary Settings</h2>
 
-@if(successMessage){
-
-  <p>{{ successMessage }}</p>
-
+@if (successMessage) {
+  <p class="success-message">
+    {{ successMessage }}
+  </p>
 }
 
-<form
-  [formGroup]="salaryForm"
-  (ngSubmit)="saveSalary()">
-
+<form [formGroup]="salaryForm" (ngSubmit)="saveSalary()">
   <label>Monthly Salary *</label>
 
-  <input
-    type="number"
-    formControlName="salary">
+  <input type="number" formControlName="salary" placeholder="Select Salary" />
 
-  @if(salaryForm.get('salary')?.touched &&
-      salaryForm.get('salary')?.invalid){
-
-    <small>
-      Salary is required and must be greater than 0
-    </small>
-
+  @if (salaryForm.get("salary")?.touched && salaryForm.get("salary")?.invalid) {
+    <small> Salary is required and must be greater than 0 </small>
   }
 
-  <br><br>
+  <button class="submit" type="submit">Save Salary</button>
+  <h3>Monthly Salary</h3>
 
-  <button type="submit">
-    Save Salary
-  </button>
-
+ @if (savedSalary) {
+  <div class="saved-salary">
+    ₹ {{ savedSalary }}
+  </div>
+}
 </form>

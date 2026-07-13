@@ -315,5 +315,10 @@ getBudgetAlerts(): string[] {
   return alerts;
 
 }
+getAllExpenses(): Expense[] {
+
+  return this.expenses;
+
+}
 
 }

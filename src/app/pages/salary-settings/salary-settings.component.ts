@@ -20,47 +20,49 @@ export class SalarySettingsComponent {
   salaryForm: FormGroup;
 
   successMessage = '';
+  savedSalary: number = 0;
 
   constructor(
     private fb: FormBuilder,
     private salaryService: SalaryService
   ) {
 
+    this.savedSalary = this.salaryService.getSalary();
+
     this.salaryForm = this.fb.group({
       salary: [
-        this.salaryService.getSalary(),
+        '',
         [
           Validators.required,
           Validators.min(1)
         ]
       ]
     });
-
   }
 
   saveSalary(): void {
 
     if (this.salaryForm.invalid) {
-
       this.salaryForm.markAllAsTouched();
-
       return;
-
     }
 
-    this.salaryService.saveSalary(
-      this.salaryForm.value.salary
-    );
+    const salary = this.salaryForm.value.salary;
 
-    this.successMessage =
-      'Salary saved successfully';
+    // Replace old salary
+    this.salaryService.saveSalary(salary);
+
+    // Display latest salary
+    this.savedSalary = salary;
+
+    // Clear input
+    this.salaryForm.reset();
+
+    this.successMessage = 'Salary saved successfully';
 
     setTimeout(() => {
-
       this.successMessage = '';
-
     }, 3000);
-
   }
 
 }

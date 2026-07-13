@@ -1,87 +1,45 @@
-<h1>Expenses</h1>
-<p>Manage your expenses here</p>
 <h2>Expense Management</h2>
 
 <app-expense-form
   [expense]="selectedExpense"
-  (expenseAdded)="onExpenseAdded($event)">
+  (expenseAdded)="onExpenseAdded($event)"
+>
 </app-expense-form>
 
-<hr>
+<hr />
 
-<h3>Search & Filter</h3>
+<div class="filter-container">
 
-<input
-  type="text"
-  placeholder="Search by title"
-  [(ngModel)]="searchText">
+  <input
+    type="text"
+    placeholder="Search by title"
+    [(ngModel)]="searchText">
 
-&nbsp;&nbsp;
+  <select [(ngModel)]="selectedCategory">
+    <option value="All">All Categories</option>
+    <option value="Food">Food</option>
+    <option value="Travel">Travel</option>
+    <option value="Shopping">Shopping</option>
+    <option value="Bills">Bills</option>
+    <option value="Entertainment">Entertainment</option>
+  </select>
 
-<select
-  [(ngModel)]="selectedCategory">
+  <label>From Date</label>
+  <input type="date" [(ngModel)]="fromDate">
 
-  <option value="All">
-    All Categories
-  </option>
+  <label>To Date</label>
+  <input type="date" [(ngModel)]="toDate">
 
-  <option value="Food">
-    Food
-  </option>
+  @if (searchText || selectedCategory !== "All" || fromDate || toDate) {
+    <button type="button" (click)="clearFilters()">
+      Clear Filters
+    </button>
+  }
 
-  <option value="Travel">
-    Travel
-  </option>
-
-  <option value="Shopping">
-    Shopping
-  </option>
-
-  <option value="Bills">
-    Bills
-  </option>
-
-  <option value="Entertainment">
-    Entertainment
-  </option>
-
-</select>
-&nbsp;&nbsp;&nbsp;
-
-<label>From Date</label>
-
-<input
-  type="date"
-  [(ngModel)]="fromDate">
-
-&nbsp;&nbsp;
-
-<label>To Date</label>
-
-<input
-  type="date"
-  [(ngModel)]="toDate">
-
-  &nbsp;&nbsp;&nbsp;
-
-@if(searchText || selectedCategory !== 'All' || fromDate || toDate ) {
-
-  <button
-    type="button"
-    (click)="clearFilters()">
-
-    Clear Filters
-
-  </button>
-
-}
-
-<br><br>
+</div>
 
 <table border="1">
-
   <thead>
-
     <tr>
       <th>Title</th>
       <th>Category</th>
@@ -90,20 +48,16 @@
       <th>Payment Method</th>
       <th>Actions</th>
     </tr>
-
   </thead>
 
   <tbody>
-
-    @for(expense of filteredExpenses; track expense.id){
-
+    @for (expense of filteredExpenses; track expense.id) {
       <tr>
-
         <td>{{ expense.title }}</td>
 
         <td>
           {{
-            expense.category === 'Others'
+            expense.category === "Others"
               ? expense.customCategory
               : expense.category
           }}
@@ -115,38 +69,22 @@
 
         <td>{{ expense.paymentMethod }}</td>
         <td>
+          <button class="edit-btn" (click)="editExpense(expense)">
+  Edit
+</button>
 
-    <button
-        (click)="editExpense(expense)">
-        Edit
-    </button>
-
-    <button
-        (click)="deleteExpense(expense.id)">
-        Delete
-    </button>
-
-</td>
-
+<button class="delete-btn" (click)="deleteExpense(expense.id)">
+  Delete
+</button>
+        </td>
       </tr>
-
     }
-
   </tbody>
-
 </table>
 
-@if(budgetAlertMessage){
+@if (budgetAlertMessage) {
+  <div class="alert">
+  <strong>{{ budgetAlertMessage }}</strong>
+</div>
 
-  <div>
-
-    <strong>
-      {{ budgetAlertMessage }}
-    </strong>
-
-  </div>
-
-  <br>
-
-  
 }
